@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git Clone') {
             steps {
-               git branch: 'main', url: 'https://github.com/suffixscope/01_products_api.git'
+               git branch: 'main', url: https://github.com/lrnngdevops-spec/project-3.git'
             }
         }
         stage('Maven Build'){
@@ -18,14 +18,14 @@ pipeline {
         }
         stage('Docker Image'){
             steps{
-             sh 'docker build -t suffixscope/products_api .'
+             sh 'docker build -t devikabraj/products_api .'
             }
         }
         stage('Docker Image push'){
             steps
             withCredentials([string(credentialsId: 'docker_pwd', variable: 'docker_pwd')]) {
-                   sh 'docker login -u suffixscope -p ${docker_pwd}'
-                   sh 'docker push suffixscope/products_api'
+                   sh 'docker login -u devikabraj -p ${docker_pwd}'
+                   sh 'docker push devikabraj/products_api'
             }
             }
         }
@@ -36,3 +36,4 @@ pipeline {
         }        
     }
 }
+
