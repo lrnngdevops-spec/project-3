@@ -16,7 +16,7 @@ spec:
   spec:
     containers:
     - name: productscontainer
-      image: devikabraj/products
+      image: devikabraj/products_api
       ports:
       - containerPort: 8080
 ---
@@ -32,4 +32,5 @@ spec:
    - port: 80
      targetPort: 8080
 ...
+
 
