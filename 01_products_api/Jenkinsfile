@@ -2,38 +2,46 @@ pipeline {
     agent any
     
     tools{
-        maven "Maven-3.9.9"
+        maven "maven"
     }    
 
     stages {
+
         stage('Git Clone') {
             steps {
-               git branch: 'main', url: https://github.com/lrnngdevops-spec/project-3.git'
+               git branch: 'main', url: 'https://github.com/lrnngdevops-spec/project-3.git'
             }
         }
+
         stage('Maven Build'){
             steps{
-             sh 'mvn clean package'
+                dir('01_products_api'){
+                    sh 'mvn clean package -DskipTests'
+                }
             }
         }
+
         stage('Docker Image'){
             steps{
-             sh 'docker build -t devikabraj/products_api .'
+                dir('01_products_api'){
+                    sh 'docker build -t devikabraj/products_api .'
+                }
             }
         }
-        stage('Docker Image push'){
-            steps
-            withCredentials([string(credentialsId: 'docker_pwd', variable: 'docker_pwd')]) {
+
+        stage('Docker Push'){
+            steps{
+                withCredentials([string(credentialsId: 'docker_pwd', variable: 'docker_pwd')]) {
                    sh 'docker login -u devikabraj -p ${docker_pwd}'
                    sh 'docker push devikabraj/products_api'
-            }
+                }
             }
         }
-        stage('k8s deployment'){
+
+        stage('Kubernetes Deploy'){
             steps{
-             sh 'kubectl apply -f Deployment.yml'
+                sh 'kubectl apply -f Deployment.yml'
             }
-        }        
+        }
     }
 }
-
