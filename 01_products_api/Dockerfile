@@ -1,11 +1,11 @@
 FROM eclipse-temurin:17-jdk
 
-COPY target/products_api.jar  /usr/app/
+WORKDIR /usr/app
 
-WORKDIR /usr/app/
-
-ENTRYPOINT ["java", "-jar", "products_api.jar"]
+COPY target/products_api.jar products_api.jar
 
 EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","products_api.jar"]
 
 
