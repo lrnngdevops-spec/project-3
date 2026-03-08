@@ -20,7 +20,7 @@ spec:
 
         env:
         - name: SPRING_DATASOURCE_URL
-          value: "jdbc:mysql://database-1.clsuuoy8ym73.ap-south-1.rds.amazonaws.com:3306/ecommerce?useSSL=false&serverTimezone=UTC"
+          value: "database-1.c8f6gg6ae07d.us-east-1.rds.amazonaws.com"
 
         - name: SPRING_DATASOURCE_USERNAME
           valueFrom:
@@ -46,3 +46,4 @@ spec:
   ports:
   - port: 80
     targetPort: 8080
+
