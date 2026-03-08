@@ -10,11 +10,11 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
-
-        // Allow requests from any origin (for testing)
-        cors.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE");
-
+        // Expose IDs for all entities
+        config.exposeIdsFor(
+            org.scopeindia.ecomm.model.Product.class,
+            org.scopeindia.ecomm.model.Order.class
+            // Add all your entity classes here
+        );
     }
 }
